@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}MCQ Test Management System{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container nav-inner">
+            <h1 class="logo">MCQ Test Management System</h1>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/student_dashboard">Student</a>
+                <a href="/admin">Admin</a>
+                <a href="/analytics">Analytics</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container main-content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div style="padding:10px 16px; margin-bottom:16px; border-radius:8px;
+                background:{{ '#EAF3DE' if category=='success' else '#FCEBEB' }};
+                color:{{ '#27500A' if category=='success' else '#791F1F' }};
+                font-size:14px">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <p>DBS Mini Project — Online MCQ Test Management System</p>
+    </footer>
+</body>
+</html>

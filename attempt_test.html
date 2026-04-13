@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Attempt Test{% endblock %}
+{% block content %}
+
+<div class="page-header">
+    <h2>Attempt: {{ test[1] }}</h2>
+    <p><strong>Duration:</strong> {{ test[2] }} minutes</p>
+    <p><strong>Time Left:</strong> <span id="timer">{{ test[2] }}:00</span></p>
+</div>
+
+<form method="POST" action="/submit_test/{{ test[0] }}" class="form-card" id="testForm">
+    <label for="student_id"><strong>Select Student:</strong></label>
+    <select name="student_id" id="student_id" required>
+        <option value="">-- Select Student --</option>
+        {% for student in students %}
+        <option value="{{ student[0] }}">{{ student[1] }}</option>
+        {% endfor %}
+    </select>
+
+    {% for item in question_data %}
+    <div class="question-card">
+        <h3>Q{{ loop.index }}. {{ item.question[2] }}</h3>
+        {% for option in item.options %}
+        <label class="radio-option">
+            <input type="radio" name="question_{{ item.question[0] }}" value="{{ option[0] }}" required>
+            {{ option[1] }}
+        </label>
+        {% endfor %}
+    </div>
+    {% endfor %}
+
+    <button type="submit" class="button">Submit Test</button>
+</form>
+
+<script>
+    let timeLeft = {{ test[2] }} * 60;
+    const timerDisplay = document.getElementById("timer");
+    const form = document.getElementById("testForm");
+
+    const countdown = setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        timerDisplay.textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+        if (timeLeft <= 60) {
+            timerDisplay.style.color = "#e11d48";
+            timerDisplay.style.fontWeight = "bold";
+        }
+
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+            alert("Time is up! Submitting automatically.");
+            form.submit();
+        }
+
+        timeLeft--;
+    }, 1000);
+</script>
+{% endblock %}

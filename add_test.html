@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block title %}Add Test{% endblock %}
+
+{% block content %}
+<h2>Add New Test</h2>
+
+<form method="POST" class="form-card">
+    <label>Test Title</label>
+    <input type="text" name="title" required>
+
+    <label>Duration (in minutes)</label>
+    <input type="number" name="duration_minutes" required>
+
+    <label>Select Administrator</label>
+    <select name="admin_id" required>
+        <option value="">-- Select Administrator --</option>
+        {% for admin in admins %}
+        <option value="{{ admin[0] }}">{{ admin[1] }}</option>
+        {% endfor %}
+    </select>
+
+    <button type="submit" class="button">Add Test</button>
+</form>
+{% endblock %}

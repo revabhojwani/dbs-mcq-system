@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Result{% endblock %}
+{% block content %}
+
+<div class="result-card">
+    <h2>Test Submitted</h2>
+    <p><strong>Student:</strong> {{ result[1] }}</p>
+    <p><strong>Test:</strong> {{ result[2] }}</p>
+    <p style="font-size:20px; margin:14px 0">
+        <strong>Score: {{ result[3] }} / {{ total_marks }}</strong>
+        &nbsp;
+        <span style="color:#1D9E75; font-weight:bold">
+            ({{ "%.0f"|format(result[3]/total_marks*100) if total_marks else 0 }}%)
+        </span>
+    </p>
+    <p><strong>Date:</strong> {{ result[4] }}</p>
+</div>
+
+<h3 style="margin: 24px 0 12px">Question-wise Breakdown</h3>
+
+{% for item in breakdown %}
+<div class="question-card" style="border-left: 4px solid {{ '#1D9E75' if item.correct else '#e11d48' }}; border-radius: 0 14px 14px 0;">
+    <h3>Q{{ loop.index }}. {{ item.question_text }}</h3>
+    <p><strong>Your answer:</strong> {{ item.selected_text }}
+        {% if item.correct %}
+            <span style="color:#1D9E75; font-weight:bold"> ✓ Correct</span>
+        {% else %}
+            <span style="color:#e11d48; font-weight:bold"> ✗ Wrong</span>
+            <br><strong>Correct answer:</strong>
+            <span style="color:#1D9E75">{{ item.correct_text }}</span>
+        {% endif %}
+    </p>
+</div>
+{% endfor %}
+
+<div class="actions" style="margin-top:20px">
+    <a class="button" href="/student_tests">Back to Tests</a>
+    <a class="button" href="/">Home</a>
+</div>
+{% endblock %}6  

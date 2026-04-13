@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Students{% endblock %}
+{% block content %}
+
+<h2>Students List</h2>
+
+<div class="table-wrapper">
+    <table>
+        <tr>
+            <th>Student ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Report</th>
+        </tr>
+        {% for student in students %}
+        <tr>
+            <td>{{ student[0] }}</td>
+            <td>{{ student[1] }}</td>
+            <td>{{ student[2] }}</td>
+            <td><a class="small-button" href="/student_report/{{ student[0] }}">View Report</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

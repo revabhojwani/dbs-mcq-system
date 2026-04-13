@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Analytics{% endblock %}
+{% block content %}
+
+<h2>Test Analytics</h2>
+
+<h3 style="margin: 20px 0 10px">Test-wise Statistics</h3>
+<div class="table-wrapper">
+    <table>
+        <tr>
+            <th>Test</th>
+            <th>Total Attempts</th>
+            <th>Average Score</th>
+            <th>Top Score</th>
+        </tr>
+        {% for row in test_stats %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ "%.1f"|format(row[2]) }}</td>
+            <td>{{ row[3] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<h3 style="margin: 20px 0 10px">Top Scorers per Test</h3>
+<div class="table-wrapper">
+    <table>
+        <tr>
+            <th>Student</th>
+            <th>Test</th>
+            <th>Score</th>
+        </tr>
+        {% for row in top_scorers %}
+        <tr>
+            <td>{{ row[0] }}</td>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+<h3 style="margin: 20px 0 10px">Students Who Haven't Attempted Any Test</h3>
+<div class="table-wrapper">
+    <table>
+        <tr><th>Student Name</th></tr>
+        {% for row in not_attempted %}
+        <tr><td>{{ row[0] }}</td></tr>
+        {% endfor %}
+    </table>
+</div>
+
+<div class="actions" style="margin-top:20px">
+    <a class="button" href="/admin">Back to Admin</a>
+</div>
+{% endblock %}

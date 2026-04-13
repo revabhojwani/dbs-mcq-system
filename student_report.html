@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Student Report{% endblock %}
+{% block content %}
+
+<div class="page-header">
+    <h2>Report for {{ student[1] }}</h2>
+    <p>Email: {{ student[2] }}</p>
+</div>
+
+{% if report %}
+<div class="table-wrapper">
+    <table>
+        <tr>
+            <th>Test</th>
+            <th>Score</th>
+            <th>Total Marks</th>
+            <th>Percentage</th>
+            <th>Date</th>
+        </tr>
+        {% for row in report %}
+        <tr>
+            <td>{{ row[1] }}</td>
+            <td>{{ row[2] }}</td>
+            <td>{{ row[5] }}</td>
+            <td>
+                {% if row[5] > 0 %}
+                    {{ "%.0f"|format(row[2]/row[5]*100) }}%
+                {% else %}
+                    N/A
+                {% endif %}
+            </td>
+            <td>{{ row[4] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% else %}
+<p>This student has not attempted any tests yet.</p>
+{% endif %}
+
+<div class="actions" style="margin-top:20px">
+    <a class="button" href="/students">Back to Students</a>
+</div>
+{% endblock %}

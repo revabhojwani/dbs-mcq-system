@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Student Dashboard{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <h2>Student Dashboard</h2>
+    <p>
+        Students can view available tests, see questions and options, and attempt tests.
+    </p>
+</section>
+
+<section class="card-grid">
+    <div class="card">
+        <h3>Total Students</h3>
+        <p class="big-number">{{ student_count }}</p>
+    </div>
+    <div class="card">
+        <h3>Total Tests</h3>
+        <p class="big-number">{{ test_count }}</p>
+    </div>
+    <div class="card">
+        <h3>Total Questions</h3>
+        <p class="big-number">{{ question_count }}</p>
+    </div>
+</section>
+
+<section class="actions">
+    <a class="button" href="/student_tests">View Available Tests</a>
+</section>
+{% endblock %}

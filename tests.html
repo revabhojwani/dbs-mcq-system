@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Tests{% endblock %}
+
+{% block content %}
+<h2>Tests List</h2>
+
+<div class="table-wrapper">
+    <table>
+        <tr>
+            <th>Test ID</th>
+            <th>Title</th>
+            <th>Duration (mins)</th>
+            <th>Created By</th>
+            <th>Questions</th>
+            <th>Attempt</th>
+        </tr>
+        {% for test in tests %}
+        <tr>
+            <td>{{ test[0] }}</td>
+            <td>{{ test[1] }}</td>
+            <td>{{ test[2] }}</td>
+            <td>{{ test[3] }}</td>
+            <td><a class="small-button" href="/test/{{ test[0] }}">View</a></td>
+            <td><a class="small-button" href="/attempt/{{ test[0] }}">Start</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}
